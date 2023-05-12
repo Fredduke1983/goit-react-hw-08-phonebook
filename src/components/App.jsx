@@ -1,37 +1,16 @@
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactFilter } from './ContactFilter/ContactFilter';
-import {
-  MainTitle,
-  PhoneBookHead,
-  PhoneBookStyle,
-  SecondTitle,
-} from './app.styled';
-import { RotatingLines } from 'react-loader-spinner';
-import { useSelector } from 'react-redux';
-import { isLoadingSelector } from 'redux/selectors/selectors';
+import { Route, Routes } from 'react-router';
+import { Layout } from './Layout';
+import { Home } from './Home/Home';
 
-export function App() {
-  const isLoading = useSelector(isLoadingSelector);
-
+export const App = () => {
   return (
-    <PhoneBookStyle>
-      <PhoneBookHead>
-        <MainTitle>
-          <h1>Phonebook</h1>
-          <div style={{ position: 'fixed', transform: 'translateY(300%)' }}>
-            <RotatingLines
-              strokeColor="grey"
-              strokeWidth="5"
-              animationDuration="0.75"
-              width="96"
-              visible={isLoading}
-            />
-          </div>
-        </MainTitle>
-        <ContactForm />
-      </PhoneBookHead>
-      <SecondTitle>Contacts</SecondTitle>
-      <ContactFilter />
-    </PhoneBookStyle>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="phonebook" element={<h2>Phonebook</h2>} />
+        <Route path="signup" element={<h2>Registration</h2>} />
+        <Route path="login" element={<h2>Login</h2>} />
+      </Route>
+    </Routes>
   );
-}
+};
