@@ -18,10 +18,6 @@ export const Home = () => {
           <NavLink to="/signup">Signup</NavLink>
         </Description>
       )}
-      {/* <Description>
-        Please, <NavLink to="/login">Login</NavLink> or{' '}
-        <NavLink to="/signup">Signup</NavLink>
-      </Description> */}
     </HomeStyle>
   );
 };

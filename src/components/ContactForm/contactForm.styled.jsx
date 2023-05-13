@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 const FormContact = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 `;
 const LabelContact = styled.label``;

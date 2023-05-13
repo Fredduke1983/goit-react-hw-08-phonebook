@@ -39,10 +39,7 @@ export const getContactsThunk = createAsyncThunk(
 export const createContactsThunk = createAsyncThunk(
   'phonebook/createContacts',
   async (contact, thunk) => {
-    console.log('data thunk create contact', thunk.getState().users.token);
-
     const data = await createContacts(contact, thunk.getState().users.token);
-    console.log('data thunk create', data);
     return data;
   }
 );

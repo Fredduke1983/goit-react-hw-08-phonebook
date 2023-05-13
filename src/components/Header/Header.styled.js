@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 const NavStyle = styled.nav`
   display: flex;
+  justify-content: space-between;
+  padding: 20px;
   align-items: center;
-  width: 100%;
   height: 60px;
   box-shadow: 1px 1px 5px white;
 `;
@@ -26,4 +27,13 @@ const ListStyle = styled.ul`
   }
 `;
 
-export { NavStyle, ListStyle };
+const WellcomeTitle = styled.div`
+  display: flex;
+  gap: 20px;
+  p {
+    text-shadow: 2px 2px 4px #fff;
+    color: #fff;
+  }
+`;
+
+export { NavStyle, ListStyle, WellcomeTitle };
