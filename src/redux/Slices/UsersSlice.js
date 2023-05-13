@@ -10,6 +10,17 @@ export const usersSlice = createSlice({
   name: 'users',
   initialState: initialStateUsers,
 
+  reducers: {
+    addNewUser: (state, { payload }) => {
+      return {
+        ...state,
+        token: payload.token,
+        isLoggedin: true,
+        user: { name: payload.user.name, email: payload.user.email },
+      };
+    },
+  },
+
   extraReducers: builder => {
     builder
       .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
@@ -30,3 +41,4 @@ export const usersSlice = createSlice({
       });
   },
 });
+export const { addNewUser } = usersSlice.actions;

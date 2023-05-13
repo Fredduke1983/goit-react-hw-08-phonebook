@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { FormBtn, FormLabel, FormRegistration } from './Registration.styled';
 import { fetchAddNewUser } from 'redux/fetches';
-import { addNewUser } from 'redux/store';
+import { addNewUser } from 'redux/Slices/UsersSlice';
 
 export const RegistrationPage = () => {
   const dispatch = useDispatch();
