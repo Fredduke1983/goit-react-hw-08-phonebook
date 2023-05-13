@@ -6,7 +6,6 @@ import {
 } from './contactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { contactsSelector } from 'redux/selectors';
@@ -15,7 +14,6 @@ import { createContactsThunk, getContactsThunk } from 'redux/reducers';
 export function ContactForm() {
   const dispatch = useDispatch();
   const contacts = useSelector(contactsSelector);
-  console.log('контакти = ', contacts);
   useEffect(() => {
     dispatch(getContactsThunk());
   }, [dispatch]);
@@ -50,7 +48,6 @@ export function ContactForm() {
     }
     dispatch(
       createContactsThunk({
-        // id: nanoid(),
         name: valueName,
         number: valueNumber,
       })

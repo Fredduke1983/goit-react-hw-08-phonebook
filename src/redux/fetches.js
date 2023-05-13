@@ -55,22 +55,19 @@ export const fetchLogoutUser = async token => {
 
 export const getContacts = async token => {
   if (token === '') return;
-  console.log('set tokennn');
   setToken(token);
-  const data = await axios.get('/contacts');
-  console.log('getContacts', data);
+  const { data } = await baseAxios.get('/contacts');
   return data;
 };
 
 export const createContacts = async (contact, token) => {
-  setToken(token); // сюди все норм прилітає {name:hhh, number:kkk} + token також є/
-  const { data } = await axios.post(`/contacts`, contact);
-  console.log(data); // сюди вже не доходить,
+  setToken(token);
+  const { data } = await baseAxios.post(`/contacts`, contact);
   return data;
 };
 
 export const deleteContacts = async id => {
-  const deleteContact = await axios.delete(`/contacts/${id}`);
+  const deleteContact = await baseAxios.delete(`/contacts/${id}`);
 
   return deleteContact.data;
 };
