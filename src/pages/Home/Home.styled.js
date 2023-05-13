@@ -16,6 +16,7 @@ const HomeStyleTitle = styled.h1`
 `;
 
 const Description = styled.p`
+  font-size: 36px;
   a:hover {
     color: white;
     text-shadow: 2px 2px 7px #fff;

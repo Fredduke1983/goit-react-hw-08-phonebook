@@ -1,5 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { ListStyle, NavStyle, WellcomeTitle } from './Header.styled';
+import {
+  ListItemStyle,
+  ListStyle,
+  NavStyle,
+  WellcomeTitle,
+} from './Header.styled';
 import { selectIsLoggedin, selectName } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -22,15 +27,15 @@ export const HeaderNav = () => {
   return (
     <NavStyle>
       <ListStyle>
-        <li>
+        <ListItemStyle>
           <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
+        </ListItemStyle>
+        <ListItemStyle>
           <NavLink to="/phonebook">Phonebook</NavLink>
-        </li>
+        </ListItemStyle>
       </ListStyle>
       <ListStyle>
-        <li>
+        <ListItemStyle>
           {!isLoggedin ? (
             <NavLink to="/login">Login</NavLink>
           ) : (
@@ -41,7 +46,7 @@ export const HeaderNav = () => {
               </NavLink>
             </WellcomeTitle>
           )}
-        </li>
+        </ListItemStyle>
         <li>{!isLoggedin && <NavLink to="/signup">Registration</NavLink>}</li>
       </ListStyle>
     </NavStyle>

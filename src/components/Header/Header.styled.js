@@ -26,6 +26,9 @@ const ListStyle = styled.ul`
     color: white;
   }
 `;
+const ListItemStyle = styled.li`
+  font-size: 20px;
+`;
 
 const WellcomeTitle = styled.div`
   display: flex;
@@ -36,4 +39,4 @@ const WellcomeTitle = styled.div`
   }
 `;
 
-export { NavStyle, ListStyle, WellcomeTitle };
+export { NavStyle, ListStyle, WellcomeTitle, ListItemStyle };
