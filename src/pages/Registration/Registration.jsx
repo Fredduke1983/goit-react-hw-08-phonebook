@@ -2,6 +2,8 @@ import { useDispatch } from 'react-redux';
 import { FormBtn, FormLabel, FormRegistration } from './Registration.styled';
 import { fetchAddNewUser } from 'redux/fetches';
 import { addNewUser } from 'redux/Slices/UsersSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const RegistrationPage = () => {
   const dispatch = useDispatch();
@@ -15,7 +17,26 @@ export const RegistrationPage = () => {
       email: email.value,
       password: password.value,
     });
-    newUser.then(response => dispatch(addNewUser(response.data)));
+
+    newUser.then(response => {
+      if (response === 400) {
+        toast.error(
+          `Такі користувач або пошта  вже існують, введіть інші дані`,
+          {
+            position: 'top-left',
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          }
+        );
+        return;
+      }
+      dispatch(addNewUser(response.data));
+    });
   };
 
   return (
@@ -38,6 +59,7 @@ export const RegistrationPage = () => {
       </FormLabel>
 
       <FormBtn type="submit">SIGNUP</FormBtn>
+      <ToastContainer />
     </FormRegistration>
   );
 };

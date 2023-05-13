@@ -6,7 +6,6 @@ export const initialStateUsers = {
   },
   isLoggedin: false,
   token: '',
-  profile: null,
 };
 
 export const initialStateContacts = {

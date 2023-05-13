@@ -13,13 +13,15 @@ const setToken = token => {
 const delToken = () =>
   delete baseAxios.defaults.headers.common['Authorization'];
 
-export const fetchAddNewUser = newUser => {
+export const fetchAddNewUser = async newUser => {
   try {
-    const fetchAxios = baseAxios.post('/users/signup', newUser);
-
-    return fetchAxios;
+    const response = await baseAxios.post('/users/signup', newUser);
+    setToken(response.data.token);
+    return response;
   } catch (error) {
-    console.log(error);
+    if (error.response.status === 400) {
+      return 400;
+    }
   }
 };
 
