@@ -1,3 +1,5 @@
+import { ContactFilter } from 'components/ContactFilter/ContactFilter';
+import { ContactForm } from 'components/ContactForm/ContactForm';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -11,5 +13,10 @@ export const Phonebook = () => {
     isLoggedin ? navigate('/phonebook') : navigate('/login');
   }, [isLoggedin, navigate]);
 
-  return <h1>PHONEBOOK</h1>;
+  return (
+    <>
+      <ContactForm />
+      <ContactFilter />
+    </>
+  );
 };

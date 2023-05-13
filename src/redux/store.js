@@ -1,9 +1,5 @@
-import { createSlice, configureStore } from '@reduxjs/toolkit';
-import {
-  getCurrentUserThunk,
-  getLogoutThunk,
-  loginUserThunk,
-} from './reducers';
+import { configureStore } from '@reduxjs/toolkit';
+
 import persistReducer from 'redux-persist/es/persistReducer';
 import persistStore from 'redux-persist/es/persistStore';
 import {
@@ -15,58 +11,22 @@ import {
   REHYDRATE,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-
-const initialState = {
-  user: {
-    name: '',
-    email: '',
-    password: null,
-  },
-  isLoggedin: false,
-  token: '',
-  profile: null,
-};
-
-export const usersSlice = createSlice({
-  name: 'users',
-  initialState,
-  reducers: {
-    addNewUser: (state, newUser) => {
-      console.log(newUser.payload);
-    },
-  },
-
-  extraReducers: builder => {
-    builder
-      .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
-        state.token = payload.token;
-        state.user.name = payload.user.name;
-        state.user.email = payload.user.email;
-        state.isLoggedin = true;
-      })
-      .addCase(getCurrentUserThunk.fulfilled, (state, { payload }) => {
-        state.profile = payload;
-      })
-      .addCase(getLogoutThunk.fulfilled, state => {
-        state.profile = null;
-        state.isLoggedin = false;
-        state.token = '';
-        state.user.name = '';
-        state.user.email = '';
-      });
-  },
-});
+import { usersSlice } from './Slices/UsersSlice';
+import { contactsSlice } from './Slices/ContactsSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  //   whitelist: ['users'],
+  // whitelist: ['users'],
 };
 
 const persistedReducer = persistReducer(persistConfig, usersSlice.reducer);
 
 const store = configureStore({
-  reducer: persistedReducer,
+  reducer: {
+    users: persistedReducer,
+    contacts: contactsSlice.reducer,
+  },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
