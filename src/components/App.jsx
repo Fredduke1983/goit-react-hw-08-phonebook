@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router';
 import { Layout } from './Layout';
-import { Home } from './Home/Home';
-import { RegistrationPage } from './Registration/Registration';
-import { LoginPage } from './Login/Login';
-import { Phonebook } from './Phonebook/Phonebook';
+import { Home } from '../pages/Home/Home';
+import { RegistrationPage } from '../pages/Registration/Registration';
+import { LoginPage } from '../pages/Login/Login';
+import { Phonebook } from '../pages/Phonebook/Phonebook';
 import { PublicRoute } from './PublicRoute/PublicRoute';
 import { PrivateRoute } from './PrivateRoute/PrivateRoute';
 
