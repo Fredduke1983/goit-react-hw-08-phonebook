@@ -1,17 +1,15 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FormBtn, FormLabel, FormLogin } from './Login.styled';
-import { logintUserThunk } from 'redux/reducers';
+import { loginUserThunk } from 'redux/reducers';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
-
-  useSelector(state => console.log('TOKEN = ', state.token));
 
   const handleSubmit = e => {
     e.preventDefault();
     const { email, password } = e.target.elements;
 
-    dispatch(logintUserThunk({ email: email.value, password: password.value }));
+    dispatch(loginUserThunk({ email: email.value, password: password.value }));
   };
 
   return (

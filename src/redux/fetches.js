@@ -1,10 +1,21 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+const baseAxios = axios.create({
+  baseURL: 'https://connections-api.herokuapp.com',
+});
+
+const setToken = token => {
+  return (baseAxios.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${token}`);
+};
+
+const delToken = () =>
+  delete baseAxios.defaults.headers.common['Authorization'];
 
 export const fetchAddNewUser = newUser => {
   try {
-    const fetchAxios = axios.post('/users/signup', newUser);
+    const fetchAxios = baseAxios.post('/users/signup', newUser);
 
     return fetchAxios;
   } catch (error) {
@@ -14,9 +25,29 @@ export const fetchAddNewUser = newUser => {
 
 export const fetchLoginUser = async user => {
   try {
-    const { data } = await axios.post('/users/login', user);
-
+    const { data } = await baseAxios.post('/users/login', user);
+    setToken(data.token);
     return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchGetCurrentUser = async token => {
+  try {
+    if (token === '') return;
+    setToken(token);
+    const { data } = await baseAxios.get('/users/current');
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchLogoutUser = async token => {
+  try {
+    await baseAxios.post('/users/logout');
+    delToken();
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,9 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
-import { logintUserThunk } from './reducers';
+import {
+  getCurrentUserThunk,
+  getLogoutThunk,
+  loginUserThunk,
+} from './reducers';
 import persistReducer from 'redux-persist/es/persistReducer';
 import persistStore from 'redux-persist/es/persistStore';
 import {
@@ -18,8 +22,9 @@ const initialState = {
     email: '',
     password: null,
   },
-
-  token: null,
+  isLoggedin: false,
+  token: '',
+  profile: null,
 };
 
 export const usersSlice = createSlice({
@@ -32,12 +37,23 @@ export const usersSlice = createSlice({
   },
 
   extraReducers: builder => {
-    builder.addCase(logintUserThunk.fulfilled, (state, { payload }) => {
-      console.log(payload.user);
-      state.token = payload.token;
-      state.user.name = payload.user.name;
-      state.user.email = payload.user.email;
-    });
+    builder
+      .addCase(loginUserThunk.fulfilled, (state, { payload }) => {
+        state.token = payload.token;
+        state.user.name = payload.user.name;
+        state.user.email = payload.user.email;
+        state.isLoggedin = true;
+      })
+      .addCase(getCurrentUserThunk.fulfilled, (state, { payload }) => {
+        state.profile = payload;
+      })
+      .addCase(getLogoutThunk.fulfilled, state => {
+        state.profile = null;
+        state.isLoggedin = false;
+        state.token = '';
+        state.user.name = '';
+        state.user.email = '';
+      });
   },
 });
 
@@ -48,6 +64,7 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, usersSlice.reducer);
+
 const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
@@ -59,9 +76,6 @@ const store = configureStore({
 });
 
 let persistor = persistStore(store);
-export { store, persistor };
 
-// const store = configureStore({
-//   reducer: usersSlice.reducer,
-// });
+export { store, persistor };
 export const { addNewUser } = usersSlice.actions;
