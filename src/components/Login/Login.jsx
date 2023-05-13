@@ -1,6 +1,9 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FormBtn, FormLabel, FormLogin } from './Login.styled';
 import { loginUserThunk } from 'redux/reducers';
+import { useNavigate } from 'react-router';
+import { selectIsLoggedin } from 'redux/selectors';
+import { useEffect } from 'react';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
@@ -11,6 +14,13 @@ export const LoginPage = () => {
 
     dispatch(loginUserThunk({ email: email.value, password: password.value }));
   };
+
+  const navigate = useNavigate();
+  const isLoggedin = useSelector(selectIsLoggedin);
+
+  useEffect(() => {
+    isLoggedin ? navigate('/phonebook') : navigate('/login');
+  }, [isLoggedin, navigate]);
 
   return (
     <FormLogin onSubmit={handleSubmit}>

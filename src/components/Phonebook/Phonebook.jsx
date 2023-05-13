@@ -8,7 +8,6 @@ export const Phonebook = () => {
   const isLoggedin = useSelector(selectIsLoggedin);
 
   useEffect(() => {
-    console.log(Boolean(isLoggedin));
     isLoggedin ? navigate('/phonebook') : navigate('/login');
   }, [isLoggedin, navigate]);
 
