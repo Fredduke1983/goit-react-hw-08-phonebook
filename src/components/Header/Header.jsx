@@ -47,7 +47,9 @@ export const HeaderNav = () => {
             </WellcomeTitle>
           )}
         </ListItemStyle>
-        <li>{!isLoggedin && <NavLink to="/signup">Registration</NavLink>}</li>
+        <ListItemStyle>
+          {!isLoggedin && <NavLink to="/signup">Registration</NavLink>}
+        </ListItemStyle>
       </ListStyle>
     </NavStyle>
   );
