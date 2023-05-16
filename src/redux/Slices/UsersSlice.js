@@ -4,7 +4,7 @@ import {
   loginUserThunk,
 } from 'redux/reducers';
 import { initialStateUsers } from './Initial';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -28,9 +28,11 @@ export const usersSlice = createSlice({
         state.user.name = payload.user.name;
         state.user.email = payload.user.email;
         state.isLoggedin = true;
+        state.isLoading = false;
       })
       .addCase(getCurrentUserThunk.fulfilled, (state, { payload }) => {
         state.profile = payload;
+        state.isLoading = false;
       })
       .addCase(getLogoutThunk.fulfilled, state => {
         state.profile = null;
@@ -38,7 +40,28 @@ export const usersSlice = createSlice({
         state.token = '';
         state.user.name = '';
         state.user.email = '';
-      });
+        state.isLoading = false;
+      })
+      .addMatcher(
+        isAnyOf(
+          loginUserThunk.pending,
+          getCurrentUserThunk.pending,
+          getLogoutThunk.pending
+        ),
+        state => {
+          state.isLoading = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          loginUserThunk.rejected,
+          getCurrentUserThunk.rejected,
+          getLogoutThunk.rejected
+        ),
+        state => {
+          state.isLoading = false;
+        }
+      );
   },
 });
 export const { addNewUser } = usersSlice.actions;

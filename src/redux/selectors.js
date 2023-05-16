@@ -5,6 +5,8 @@ const contactsSelector = state => state.contacts.contacts.items;
 const filterSelector = state => state.contacts.valueFilter;
 const isLoadingSelector = state => state.contacts.contacts.isLoading;
 const error = state => state.contacts.contacts.error;
+const isLoadingUser = state => state.users.isLoading;
+const isLoadingContacts = state => state.contacts.isLoading;
 
 export {
   selectToken,
@@ -14,4 +16,6 @@ export {
   filterSelector,
   isLoadingSelector,
   error,
+  isLoadingUser,
+  isLoadingContacts,
 };
